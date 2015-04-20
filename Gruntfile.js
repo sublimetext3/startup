@@ -47,13 +47,21 @@ module.exports = function(grunt) {
 		browserSync: {
 			dev: {
 				bsFiles: {
-					src : 'assets/css/style.min.css'
+					src : ['assets/css/style.min.css','public/*/*.php']
 				},
 				options: {
-					proxy: "http://localhost:8000/app/"
+					proxy: "http://localhost:8000/materialup/"
 				}
 			}
 		},
+		csscomb: {
+			examples: {
+				expand: true,
+				cwd: 'build/component/',
+				src: ['**/*.less'],
+				dest: 'build/component/'
+			}
+		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -62,8 +70,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-browser-sync');
+	grunt.loadNpmTasks('grunt-csscomb');
 
-	grunt.registerTask('build-css', ['concat:less','less','cssmin']);
+	grunt.registerTask('build-css', ['csscomb','concat:less','less','cssmin']);
 	grunt.registerTask('build-js', ['uglify']);
 	grunt.registerTask('build', ['build-css','build-js']);
 	grunt.registerTask('livereload', ['browserSync']);
