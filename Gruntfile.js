@@ -50,12 +50,16 @@ module.exports = function(grunt) {
 					src : ['assets/css/style.min.css','public/*/*.php']
 				},
 				options: {
-					proxy: "http://localhost:8000/materialup/"
+					proxy: "http://localhost:8000/realsite/"
 				}
 			}
 		},
 		csscomb: {
-			examples: {
+
+			dist: {
+				options: {
+					config: 'csscomb.json'
+				},
 				expand: true,
 				cwd: 'build/component/',
 				src: ['**/*.less'],
